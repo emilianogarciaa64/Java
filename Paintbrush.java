@@ -21,18 +21,21 @@ public class Paintbrush {
         g.fillOval(40, 40, 20, 20);
     }
 
-    public void drawMountains() {
+    public void drawMountains(int x1,int y1,int x2,int y2,int x3,int y3) {
         Polygon triangle = new Polygon();
-        triangle.addPoint(15,120);
+        /* triangle.addPoint(15,120);
         triangle.addPoint(100,40);
-        triangle.addPoint(180,130);
+        triangle.addPoint(180,130); */
+        triangle.addPoint(x1,y1);
+        triangle.addPoint(x2,y2);
+        triangle.addPoint(x3,y3);
         g.setColor(COLOR_BROWN);
         g.fillPolygon(triangle);
     }
 
-    public void drawTree() {
-        int start = 200;
-        int top = 50;
+    public void drawTree(int start,int top) {
+        /* int start = 200;
+        int top = 50; */
 
         // draw trunk
         g.setColor(COLOR_TRUNK_TREE);
