@@ -4,9 +4,7 @@ import java.awt.Polygon;
 
 public class Paintbrush {
     private Graphics g;
-    private static final Color COLOR_BROWN = new Color(34,27,21);
-    private static final Color COLOR_TRUNK_TREE = new Color(50,27,30);
-    private static final Color COLOR_TREE = new Color(16,46,60);
+    
 
 
     public Paintbrush(Graphics g){
@@ -21,6 +19,13 @@ public class Paintbrush {
         g.fillOval(40, 40, 20, 20);
     }
 
+
+    public void drawSun(Point p){
+
+        g.setColor(Config.COLOR_SUN);
+        g.fillOval(p.getX(), p.getY(), Config.SUN_SIZE, Config.SUN_SIZE);
+    }
+
     public void drawMountains(int x1,int y1,int x2,int y2,int x3,int y3) {
         Polygon triangle = new Polygon();
         /* triangle.addPoint(15,120);
@@ -29,7 +34,7 @@ public class Paintbrush {
         triangle.addPoint(x1,y1);
         triangle.addPoint(x2,y2);
         triangle.addPoint(x3,y3);
-        g.setColor(COLOR_BROWN);
+        g.setColor(Config.COLOR_BROWN);
         g.fillPolygon(triangle);
     }
 
@@ -38,10 +43,10 @@ public class Paintbrush {
         int top = 50; */
 
         // draw trunk
-        g.setColor(COLOR_TRUNK_TREE);
+        g.setColor(Config.COLOR_TRUNK_TREE);
         g.fillRect(start-10, top+110, 26, 40);
 
-        g.setColor(COLOR_TREE);
+        g.setColor(Config.COLOR_TREE);
         for(int i=0; i < 5; i++ ){
             Polygon triangle = new Polygon();
             int height = 50;
