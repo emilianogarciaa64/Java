@@ -1,78 +1,62 @@
+import java.awt.Color;
 import java.awt.Dimension;
-import javax.swing.JPanel;
 import java.awt.Graphics;
-import java.awt.event.*;
+/* import java.awt.Color;
+import java.awt.Dimension;
+import java.awt.Graphics; */
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+import java.util.ArrayList;
 
-public class MyCanvas extends JPanel implements KeyListener,ActionListener{
-    Point pSun = new Point(Config.WINDOW_W/2, Config.WINDOW_H/2);  
+import javax.swing.Timer;
+import javax.swing.JPanel;
+
+public class MyCanvas extends JPanel implements ActionListener{
+    ArrayList<Car> cars = new ArrayList<Car>();
+    ArrayList<Ufo> ufos = new ArrayList<Ufo>();
+    ArrayList<Plane> planes = new ArrayList<Plane>();
+
     public MyCanvas () {
-        setPreferredSize(new Dimension(Config.WINDOW_W,Config.WINDOW_H));
-        setBackground(Config.COLOR_BG);
+        setPreferredSize(new Dimension(400,300));
+        setBackground(Color.GRAY);
+        Timer timer = new Timer(80, this);
+        timer.start();
+        /* cars.add(new Car(10, 250, 2, 0, Color.RED, 60,30));
+        cars.add(new Car(10, 200, 3, 0, Color.BLUE, 50, 25));
+        cars.add(new Car(10, 150, 4, 0, Color.GREEN, 40,20)); */
+        //cars.add(new Car(10, 100, 5, 0, Color.ORANGE, 30, 15) );
+
+        ufos.add(new Ufo(300, 200, -5, 0, Color.GREEN, 90, 45) );
+        planes.add(new Plane(10, 100, 5, 0, Color.ORANGE, 90, 25) );
+        
+
+
     }
-    @Override //Siempre va existir este metodo 
+    
+    @Override
     protected void paintComponent(Graphics g){
         super.paintComponent(g);
         Paintbrush paintBrush = new Paintbrush(g);
         paintBrush.drawSky();
-        
-
-        paintBrush.drawMountains(15,120,100,40,180,120);
-        paintBrush.drawMountains(180,120,250,40,350,120);
-        paintBrush.drawMountains(100,120,175,40,250,100);
-        paintBrush.drawMountains(200,175,350,50,400,175);
-        paintBrush.drawTree(200,50);
-        paintBrush.drawTree(100,20);
-        paintBrush.drawTree(300,40);
-        paintBrush.drawTree(50,110);
-        paintBrush.drawTree(360,100);
-        paintBrush.drawTree(140,75); 
-
-        paintBrush.drawSun(pSun);
-
-        Vehicle vehiculo = new Vehicle(g);
-        vehiculo.drawPlane();
-        
-
-
-    }
-
-    @Override 
-    public void keyPressed(KeyEvent event){
-
-        int key = event.getKeyCode(); 
-        if(key == KeyEvent.VK_UP){
-            pSun.setY(pSun.getY()-Config.SUN_STEP);
+        paintBrush.drawMountains();
+        for(Car c : cars){
+            c.move();
+            c.draw(g);
         }
 
-        if(key == KeyEvent.VK_DOWN){
-            pSun.setY(pSun.getY()+Config.SUN_STEP);
+        for(Ufo c : ufos){
+            c.move();
+            c.draw(g);
         }
 
-        if(key == KeyEvent.VK_RIGHT){
-            pSun.setX(pSun.getX()+Config.SUN_STEP);
+        for(Plane c : planes){
+            c.move();
+            c.draw(g);
         }
-
-        if(key == KeyEvent.VK_LEFT){
-            pSun.setX(pSun.getX()-Config.SUN_STEP);
-        }
-
-        repaint();
-
+        paintBrush.drawTree();
     }
     @Override
     public void actionPerformed(ActionEvent e) {
-        // TODO Auto-generated method stub
-        
-    }
-    @Override
-    public void keyTyped(KeyEvent e) {
-        // TODO Auto-generated method stub
-        
-    }
-    @Override
-    public void keyReleased(KeyEvent e) {
-        // TODO Auto-generated method stub
-        
+        repaint();
     }
 }
-
